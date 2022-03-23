@@ -227,6 +227,7 @@ module Awscr::S3
     def copy_object(bucket, source : String, destination : String,
                     headers : Hash(String, String) = {} of String => String)
       headers["x-amz-copy-source"] = "/#{bucket}/#{Util.encode(source)}"
+      pp(headers)
       resp = http.put("/#{bucket}/#{Util.encode(destination)}", "", headers)
       Response::CopyObjectOutput.from_response(resp)
     end
